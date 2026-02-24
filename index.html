@@ -11,18 +11,55 @@
             box-sizing: border-box;
         }
 
+        /* BACKGROUND SUGGESTION:
+           - subtle vertical gradient
+           - optional faint noise overlay
+           - optional soft glow blobs
+        */
         body {
             font-family: 'Courier New', Courier, monospace;
             line-height: 1.7;
             color: #ffffff;
-            background: #1a2332;
+            min-height: 100vh;
             padding: 0;
+            background: linear-gradient(
+                135deg,
+                #0b1222 0%,
+                #0f172a 40%,
+                #111827 70%,
+                #0b1222 100%
+            );
+            background-size: 200% 200%;
+            animation: gradientShift 18s ease infinite;
+            position: relative;
+            overflow-x: hidden;
         }
 
+    
         .container {
             max-width: 680px;
             margin: 0 auto;
             padding: 4rem 2rem;
+            position: relative;
+        }
+
+        body::after {
+            content: "";
+            position: fixed;
+            inset: 0;
+            pointer-events: none;
+            background:
+                radial-gradient(
+                    800px 600px at 15% 20%,
+                    rgba(96,165,250,0.06),
+                    transparent 60%
+                ),
+                radial-gradient(
+                    900px 700px at 85% 70%,
+                    rgba(59,130,246,0.04),
+                    transparent 65%
+                );
+            z-index: 0;
         }
 
         h1 {
@@ -115,19 +152,46 @@
             margin-right: 1.5rem;
         }
 
+        /* Typewriter cursor stays after typing */
         .typewriter-cursor {
             display: inline-block;
-            width: 2px;
-            height: 1em;
-            background-color: #60a5fa;
-            margin-left: 2px;
+            width: 2px;                 /* thin */
+            height: 1.05em;
+            background-color: #ffffff;  /* white */
+            margin-left: 4px;
             animation: blink 1s infinite;
-            vertical-align: text-bottom;
+            vertical-align: -0.12em;
         }
 
         @keyframes blink {
             0%, 50% { opacity: 1; }
             51%, 100% { opacity: 0; }
+        }
+
+        /* NEW: entry-style sections (Experience/Awards) */
+        .entries {
+            display: flex;
+            flex-direction: column;
+            gap: 1.35rem;
+        }
+
+        .entry-title {
+            font-size: 1.15rem;
+            font-weight: 700;
+            color: #ffffff;
+            margin-bottom: 0.2rem;
+        }
+
+        .entry-meta {
+            color: #9ca3af;
+            font-size: 0.95rem;
+            font-weight: 400;
+            margin-bottom: 0.45rem;
+        }
+
+        .entry-desc {
+            color: #d1d5db;
+            margin-bottom: 0;
         }
 
         @media (max-width: 768px) {
@@ -149,49 +213,32 @@
     <div class="container">
         <div class="intro">
             <h1 id="name-typewriter"></h1>
-            <p class="subtitle">biomedical engineering & computer science • machine Learning • computer vision</p>
+            <p class="subtitle">biomedical engineering & computer science • machine learning • computer vision</p>
             <p>i'm a sophomore at johns hopkins university studying biomedical engineering and computer science. i'm passionate about applying deep learning and computer vision to medicine, and learning more about foundation models.</p>
         </div>
 
         <h2>experience</h2>
-        
-        <h3>incoming @ medtronic</h3>
-        <ul>
-            <li>machine learning for cardiac ablation solutions team.</li>
-        </ul>
 
-        <h3>visilant</h3>
-        <ul>
-            <li>fine-tuned vision language models to optimize disease classification.</li>
-        </ul>
+        <!-- UPDATED: no bullets, meta line for dates -->
+        <div class="entries">
+            <div class="entry">
+                <div class="entry-title">incoming @ medtronic</div>
+                <div class="entry-meta">summer 2026 • cardiac ablation solutions</div>
+                <p class="entry-desc">machine learning work for cardiac ablation solutions team.</p>
+            </div>
 
-        <h3>wilmer eye institute</h3>
-        <ul>
-            <li>developed and maintaned cloud databases for computer vision software to diagnose eye disease.</li>
-        </ul>
+            <div class="entry">
+                <div class="entry-title">visilant</div>
+                <div class="entry-meta">2025 • machine learning</div>
+                <p class="entry-desc">fine-tuned vision-language models to optimize disease classification.</p>
+            </div>
 
-        <h2>research & skills</h2>
-        
-        <h3>machine learning & deep learning</h3>
-        <ul>
-            <li>deep neural networks with tensorflow and pytorch</li>
-            <li>cnn and rnn architectures for medical applications</li>
-            <li>transfer learning and model optimization</li>
-        </ul>
-
-        <h3>computer vision</h3>
-        <ul>
-            <li>medical image analysis and segmentation</li>
-            <li>object detection and tracking</li>
-            <li>opencv, scikit-image, and custom pipelines</li>
-        </ul>
-
-        <h3>biomedical engineering</h3>
-        <ul>
-            <li>medical device development and prototyping</li>
-            <li>biosignal processing (eeg and ecg) </li>
-            <li>real-time tracking and sensor processing</li>
-        </ul>
+            <div class="entry">
+                <div class="entry-title">wilmer eye institute</div>
+                <div class="entry-meta">2024–2025 • computer vision infrastructure</div>
+                <p class="entry-desc">developed and maintained cloud databases for computer vision software to diagnose eye disease.</p>
+            </div>
+        </div>
 
         <h2>projects</h2>
 
@@ -219,20 +266,52 @@
 
         <div class="project">
             <h3>i got your back</h3>
-            <p class="project-meta">computer Vision • healthcare</p>
+            <p class="project-meta">computer vision • healthcare</p>
             <p>medical device to detect abnormal posture for maternal wellness.</p>
             <div class="tags">
                 <span class="tag">#yolo</span>
                 <span class="tag">#logistic regression</span>
                 <span class="tag">#python</span>
             </div>
-        </div> 
+        </div>
+
+        <h2>research & skills</h2>
+        
+        <h3>machine learning & deep learning</h3>
+        <ul>
+            <li>deep neural networks with tensorflow and pytorch</li>
+            <li>cnn and rnn architectures for medical applications</li>
+            <li>transfer learning and model optimization</li>
+        </ul>
+
+        <h3>computer vision</h3>
+        <ul>
+            <li>medical image analysis and segmentation</li>
+            <li>object detection and tracking</li>
+            <li>opencv, scikit-image, and custom pipelines</li>
+        </ul>
+
+        <h3>biomedical engineering</h3>
+        <ul>
+            <li>medical device development and prototyping</li>
+            <li>biosignal processing (eeg and ecg)</li>
+            <li>real-time tracking and sensor processing</li>
+        </ul>
 
         <h2>awards</h2>
-        <ul>
-            <li>aua 2026 - presenting author</li>
-            <li>imsh 2026 - presenting author</li>
-        </ul>
+
+        <!-- UPDATED: no bullets, meta line -->
+        <div class="entries">
+            <div class="entry">
+                <div class="entry-title">aua 2026</div>
+                <div class="entry-meta">presenting author</div>
+            </div>
+
+            <div class="entry">
+                <div class="entry-title">imsh 2026</div>
+                <div class="entry-meta">presenting author</div>
+            </div>
+        </div>
 
         <h2>contact</h2>
         <div class="contact-links">
@@ -246,24 +325,23 @@
     <script>
         function typeWriter(element, text, speed = 100) {
             let i = 0;
+
+            // Keep cursor permanently (do not remove)
             const cursor = document.createElement('span');
             cursor.className = 'typewriter-cursor';
             element.appendChild(cursor);
-            
+
             function type() {
                 if (i < text.length) {
                     element.insertBefore(document.createTextNode(text.charAt(i)), cursor);
                     i++;
                     setTimeout(type, speed);
-                } else {
-                    setTimeout(() => cursor.remove(), 1000);
                 }
             }
-            
+
             type();
         }
 
-        // Start typing the name when page loads
         document.addEventListener('DOMContentLoaded', () => {
             const nameElement = document.getElementById('name-typewriter');
             typeWriter(nameElement, 'bennett ye', 100);
