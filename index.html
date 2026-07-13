@@ -50,11 +50,38 @@
             display: flex;
             justify-content: space-between;
             align-items: baseline;
+            gap: 1rem;
             margin-bottom: 3rem;
         }
 
         .name {
             font-weight: 600;
+            color: var(--text);
+        }
+
+        .header-right {
+            display: flex;
+            align-items: baseline;
+            gap: 1.25rem;
+        }
+
+        nav {
+            display: flex;
+            gap: 1.1rem;
+        }
+
+        nav a {
+            color: var(--muted);
+            border-bottom: none;
+            font-size: 0.9rem;
+            cursor: pointer;
+        }
+
+        nav a:hover {
+            color: var(--text);
+        }
+
+        nav a.active {
             color: var(--text);
         }
 
@@ -72,9 +99,78 @@
             color: var(--text);
         }
 
+        /* views */
+        .view {
+            display: none;
+        }
+
+        .view.active {
+            display: block;
+        }
+
+        /* about header: photo + blurb */
+        .about-head {
+            display: flex;
+            gap: 1.75rem;
+            align-items: center;
+            margin-bottom: 1.5rem;
+        }
+
+        .photo-frame {
+            width: 132px;
+            height: 132px;
+            border-radius: 50%;
+            flex-shrink: 0;
+            overflow: hidden;
+            border: 1px solid var(--rule);
+            background: var(--rule);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+        }
+
+        .photo {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            display: block;
+            position: relative;
+            z-index: 1;
+        }
+
+        .photo-ph {
+            position: absolute;
+            inset: 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--muted);
+            font-size: 0.78rem;
+            letter-spacing: 0.08em;
+            text-transform: uppercase;
+        }
+
+        .about-head h1 {
+            font-size: 1.35rem;
+            font-weight: 600;
+            color: var(--text);
+            line-height: 1.3;
+        }
+
+        .about-head .tagline {
+            color: var(--muted);
+            font-size: 0.92rem;
+            margin-top: 0.4rem;
+        }
+
         .intro p {
             margin-bottom: 1rem;
             color: var(--text);
+        }
+
+        .intro p:last-child {
+            margin-bottom: 0;
         }
 
         .intro .tagline {
@@ -86,6 +182,10 @@
             margin-top: 3rem;
         }
 
+        .view > section:first-child {
+            margin-top: 0;
+        }
+
         h2 {
             font-size: 0.8rem;
             font-weight: 500;
@@ -93,6 +193,15 @@
             letter-spacing: 0.12em;
             color: var(--muted);
             margin-bottom: 1.25rem;
+            display: flex;
+            align-items: center;
+            gap: 0.55rem;
+        }
+
+        h2 .icon {
+            width: 12px;
+            height: 12px;
+            stroke-width: 2;
         }
 
         .row {
@@ -168,6 +277,9 @@
             color: var(--muted);
             flex-shrink: 0;
             width: 7.5rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
         }
 
         .skill-value {
@@ -186,6 +298,9 @@
         footer a {
             color: var(--muted);
             border-bottom: none;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.4rem;
         }
 
         footer a:hover {
@@ -201,35 +316,11 @@
             flex-shrink: 0;
         }
 
-        h2 {
-            display: flex;
-            align-items: center;
-            gap: 0.55rem;
-        }
-
-        h2 .icon {
-            width: 12px;
-            height: 12px;
-            stroke-width: 2;
-        }
-
-        .skill-label {
-            display: flex;
-            align-items: center;
-            gap: 0.5rem;
-        }
-
         .theme-toggle .icon {
             width: 15px;
             height: 15px;
             vertical-align: -3px;
             stroke-width: 1.75;
-        }
-
-        footer a {
-            display: inline-flex;
-            align-items: center;
-            gap: 0.4rem;
         }
 
         .icon.brand {
@@ -240,6 +331,12 @@
         @media (max-width: 600px) {
             .container {
                 padding: 3rem 1.25rem 4rem;
+            }
+            .about-head {
+                flex-direction: column;
+                align-items: flex-start;
+                text-align: left;
+                gap: 1.25rem;
             }
             .skill-row {
                 flex-direction: column;
@@ -255,116 +352,180 @@
     <div class="container">
         <header>
             <span class="name">bennett ye</span>
-            <button class="theme-toggle" id="theme-toggle" aria-label="toggle theme"></button>
+            <div class="header-right">
+                <nav>
+                    <a data-view="about" class="active">about</a>
+                    <a data-view="projects">projects</a>
+                </nav>
+                <button class="theme-toggle" id="theme-toggle" aria-label="toggle theme"></button>
+            </div>
         </header>
 
-        <div class="intro">
-            <p class="tagline">biomedical engineering & computer science · machine learning · computer vision</p>
-            <p>sophomore at johns hopkins studying biomedical engineering and computer science. interested in foundation model research, surgical robotics, and applying deep learning and computer vision to medicine.</p>
+        <!-- ============ ABOUT ============ -->
+        <div class="view active" id="view-about">
+            <div class="about-head">
+                <!-- drop a square photo named photo.jpg next to this file; the placeholder shows until then -->
+                <div class="photo-frame">
+                    <span class="photo-ph">photo</span>
+                    <img src="IMG_7746.jpg" alt="bennett ye" class="photo"
+                         onerror="this.style.display='none'">
+                </div>
+                <div>
+                    <h1>hi, i'm bennett</h1>
+                    <p class="tagline">biomedical engineering & computer science · johns hopkins</p>
+                </div>
+            </div>
+
+            <div class="intro">
+                <p>i'm a junior at johns hopkins studying biomedical engineering and computer science. i'm passionate about applying machine learning and automation to large scale systems, whether that be medical technology, regulatory compliance, or the stock market. currently, i'm exploring the intersection of deep learning and medicine: teaching models to see surgery the way clinicians do, and building tools to improve surgery.</p>
+                <p>right now i'm working on surgical video understanding, automation for regulatory compliance, optimizing long-term value investing, and building neural networks in C++. outside of building, I enjoy skiing, bouldering, chess, soccer, and chess!</p>
+            </div>
+
+            <section>
+                <!-- edit these interests to whatever feels most you -->
+                <h2><i data-lucide="compass" class="icon"></i>interests</h2>
+                <div class="row">
+                    <div class="row-main">
+                        <div class="row-title">surgical robotics</div>
+                        <div class="row-desc">autonomy, vision-language models, and remote operating rooms</div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="row-main">
+                        <div class="row-title">stock ranking</div>
+                        <div class="row-desc">trying to find the best way to make some money on the market...</div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="row-main">
+                        <div class="row-title">startups</div>
+                        <div class="row-desc">regulatory agents in medtech software so compliance moves as fast as development</div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="row-main">
+                        <div class="row-title">bouldering</div>
+                        <div class="row-desc">slowly getting my way to v5</div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="row-main">
+                        <div class="row-title">chess</div>
+                        <div class="row-desc">learning twelve lines of the sicilian defense</div>
+                    </div>
+                </div>
+            </section>
         </div>
 
-        <section>
-            <h2><i data-lucide="briefcase-medical" class="icon"></i>experience</h2>
-            <div class="row">
-                <div class="row-main">
-                    <div class="row-title">medtronic</div>
-                    <div class="row-desc">machine learning, cardiac ablation solutions</div>
-                </div>
-                <div class="row-meta">summer 2026</div>
+        <!-- ============ PROJECTS ============ -->
+        <div class="view" id="view-projects">
+            <div class="intro">
+                <p class="tagline">biomedical engineering & computer science · machine learning · computer vision</p>
             </div>
-            <div class="row">
-                <div class="row-main">
-                    <div class="row-title">visilant</div>
-                    <div class="row-desc">fine-tuned vision-language models for disease classification</div>
-                </div>
-                <div class="row-meta">2025</div>
-            </div>
-            <div class="row">
-                <div class="row-main">
-                    <div class="row-title">wilmer eye institute</div>
-                    <div class="row-desc">cloud infrastructure for computer vision diagnostics</div>
-                </div>
-                <div class="row-meta">2024–25</div>
-            </div>
-        </section>
 
-        <section>
-            <h2><i data-lucide="flask-conical" class="icon"></i>projects</h2>
-            <div class="row">
-                <div class="row-main">
-                    <div class="row-title">scrub</div>
-                    <div class="row-desc">automated surgical video labeling to reduce annotation time</div>
-                </div>
-                <div class="row-meta">computer vision · python</div>
-            </div>
-            <a href="https://stock-thing-rust.vercel.app" target="_blank" rel="noopener">
+            <section>
+                <h2><i data-lucide="briefcase-medical" class="icon"></i>experience</h2>
                 <div class="row">
                     <div class="row-main">
-                        <div class="row-title">stock ranker</div>
-                        <div class="row-desc">rank stocks based on projected performance relative to s&p 500</div>
+                        <div class="row-title">medtronic</div>
+                        <div class="row-desc">machine learning, cardiac ablation solutions</div>
                     </div>
-                    <div class="row-meta">machine learning · SQL</div>
+                    <div class="row-meta">summer 2026</div>
                 </div>
-            </a>
-            <a href="https://github.com/silvercube227/AEEP_Simulation" target="_blank" rel="noopener">
                 <div class="row">
                     <div class="row-main">
-                        <div class="row-title">aeep surgical simulator</div>
-                        <div class="row-desc">real-time location and force feedback for novice surgeons</div>
+                        <div class="row-title">visilant</div>
+                        <div class="row-desc">fine-tuned vision-language models for disease classification</div>
                     </div>
-                    <div class="row-meta">raspberry pi · arduino</div>
+                    <div class="row-meta">2025</div>
                 </div>
-            </a>
-            <a href="https://github.com/silvercube227/neural-network-math" target="_blank" rel="noopener">
                 <div class="row">
                     <div class="row-main">
-                        <div class="row-title">custom neural network engine</div>
-                        <div class="row-desc">numpy-only nn to explore the math of deep learning</div>
+                        <div class="row-title">wilmer eye institute</div>
+                        <div class="row-desc">cloud infrastructure for computer vision diagnostics</div>
                     </div>
-                    <div class="row-meta">numpy · mathematics</div>
+                    <div class="row-meta">2024–25</div>
                 </div>
-            </a>
-        </section>
+            </section>
 
-        <section>
-            <h2><i data-lucide="cpu" class="icon"></i>skills</h2>
-            <div class="skills">
-                <div class="skill-row">
-                    <span class="skill-label"><i class="icon"></i>machine learning</span>
-                    <span class="skill-value">pytorch, tensorflow, cnns, rnns, decision trees</span>
+            <section>
+                <h2><i data-lucide="flask-conical" class="icon"></i>projects</h2>
+                <div class="row">
+                    <div class="row-main">
+                        <div class="row-title">scrub</div>
+                        <div class="row-desc">automated surgical video labeling to reduce annotation time</div>
+                    </div>
+                    <div class="row-meta">computer vision · python</div>
                 </div>
-                <div class="skill-row">
-                    <span class="skill-label"><i class="icon"></i>backend</span>
-                    <span class="skill-value">api design, databases (sql), google cloud platform</span>
-                </div>
-                <div class="skill-row">
-                    <span class="skill-label"><i class="icon"></i>computer vision</span>
-                    <span class="skill-value">medical imaging, segmentation, object detection, opencv</span>
-                </div>
-                <div class="skill-row">
-                    <span class="skill-label"><i class="icon"></i>biomedical engineering</span>
-                    <span class="skill-value">device prototyping, biosignal processing, real-time tracking</span>
-                </div>
-            </div>
-        </section>
+                <a href="https://stock-thing-rust.vercel.app" target="_blank" rel="noopener">
+                    <div class="row">
+                        <div class="row-main">
+                            <div class="row-title">stock ranker</div>
+                            <div class="row-desc">rank stocks based on projected performance relative to s&p 500</div>
+                        </div>
+                        <div class="row-meta">machine learning · SQL</div>
+                    </div>
+                </a>
+                <a href="https://github.com/silvercube227/AEEP_Simulation" target="_blank" rel="noopener">
+                    <div class="row">
+                        <div class="row-main">
+                            <div class="row-title">aeep surgical simulator</div>
+                            <div class="row-desc">real-time location and force feedback for novice surgeons</div>
+                        </div>
+                        <div class="row-meta">raspberry pi · arduino</div>
+                    </div>
+                </a>
+                <a href="https://github.com/silvercube227/neural-network-math" target="_blank" rel="noopener">
+                    <div class="row">
+                        <div class="row-main">
+                            <div class="row-title">custom neural network engine</div>
+                            <div class="row-desc">numpy-only nn to explore the math of deep learning</div>
+                        </div>
+                        <div class="row-meta">numpy · mathematics</div>
+                    </div>
+                </a>
+            </section>
 
-        <section>
-            <h2><i data-lucide="award" class="icon"></i>awards</h2>
-            <div class="row">
-                <div class="row-main">
-                    <div class="row-title">american urological association</div>
-                    <div class="row-desc">presenting author</div>
+            <section>
+                <h2><i data-lucide="cpu" class="icon"></i>skills</h2>
+                <div class="skills">
+                    <div class="skill-row">
+                        <span class="skill-label"><i class="icon"></i>machine learning</span>
+                        <span class="skill-value">pytorch, tensorflow, cnns, rnns, decision trees</span>
+                    </div>
+                    <div class="skill-row">
+                        <span class="skill-label"><i class="icon"></i>backend</span>
+                        <span class="skill-value">api design, databases (sql), google cloud platform</span>
+                    </div>
+                    <div class="skill-row">
+                        <span class="skill-label"><i class="icon"></i>computer vision</span>
+                        <span class="skill-value">medical imaging, segmentation, object detection, opencv</span>
+                    </div>
+                    <div class="skill-row">
+                        <span class="skill-label"><i class="icon"></i>biomedical engineering</span>
+                        <span class="skill-value">device prototyping, biosignal processing, real-time tracking</span>
+                    </div>
                 </div>
-                <div class="row-meta">2026</div>
-            </div>
-            <div class="row">
-                <div class="row-main">
-                    <div class="row-title">international meeting on simulation in healthcare</div>
-                    <div class="row-desc">presenting author</div>
+            </section>
+
+            <section>
+                <h2><i data-lucide="award" class="icon"></i>awards</h2>
+                <div class="row">
+                    <div class="row-main">
+                        <div class="row-title">american urological association</div>
+                        <div class="row-desc">presenting author</div>
+                    </div>
+                    <div class="row-meta">2026</div>
                 </div>
-                <div class="row-meta">2026</div>
-            </div>
-        </section>
+                <div class="row">
+                    <div class="row-main">
+                        <div class="row-title">international meeting on simulation in healthcare</div>
+                        <div class="row-desc">presenting author</div>
+                    </div>
+                    <div class="row-meta">2026</div>
+                </div>
+            </section>
+        </div>
 
         <footer>
             <a href="mailto:bennettye@gmail.com"><i data-lucide="mail" class="icon"></i>email</a>
@@ -390,13 +551,33 @@
             }
 
             apply(initial);
-            lucide.createIcons();
 
             toggle.addEventListener('click', () => {
                 const next = root.classList.contains('light') ? 'dark' : 'light';
                 localStorage.setItem('theme', next);
                 apply(next);
             });
+
+            // tab switching (about / projects) — no page reload, works on github pages
+            const links = document.querySelectorAll('nav a[data-view]');
+            function show(view) {
+                links.forEach(l => l.classList.toggle('active', l.dataset.view === view));
+                document.querySelectorAll('.view').forEach(v =>
+                    v.classList.toggle('active', v.id === 'view-' + view));
+            }
+
+            links.forEach(l => l.addEventListener('click', (e) => {
+                e.preventDefault();
+                const view = l.dataset.view;
+                history.replaceState(null, '', view === 'about' ? '#' : '#' + view);
+                show(view);
+            }));
+
+            // honor the url hash on load so #projects is shareable
+            const start = location.hash.replace('#', '');
+            show(start === 'projects' ? 'projects' : 'about');
+
+            lucide.createIcons();
         })();
     </script>
 </body>
